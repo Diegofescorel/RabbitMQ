@@ -1,4 +1,6 @@
-#!/Users/diegoescorel/Documents/Diego_Pessoal/Cesar/natacha/RabbitMQ/venv/bin/python3.12
+#!/bin/sh
+'''exec' "/Users/diegoescorel/Documents/Diego_Pessoal/Cesar/2024.2/natacha (FFCPD)/RabbitMQ/venv/bin/python3.12" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

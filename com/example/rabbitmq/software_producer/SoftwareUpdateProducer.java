@@ -32,10 +32,6 @@ public class SoftwareUpdateProducer {
                 
                 String content = "[" + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")) + "]" + " " + producer + " : " + updateType + " : " + description; 
 
-                // String message = String.format("[%s] %s : %s : %s",
-                //     java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")),
-                //     producer, updateType, description);
-
                 channel.basicPublish(EXCHANGE_NAME, routingKey, null, content.getBytes(StandardCharsets.UTF_8));
                 System.out.println(" [x] Mensagem: '" + content + "'" + " enviada com sucesso no tópico " + routingKey);
 

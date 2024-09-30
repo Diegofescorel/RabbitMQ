@@ -3,7 +3,7 @@ import pika
 EXCHANGE_NAME = 'software_update_exchange'
 
 def callback(ch, method, properties, body):
-    print(f"[CONSUMIDOR] Notificação recebida {method.routing_key}:\n{body.decode()}")
+    print(f"[CONSUMIDOR] Notificação recebida '{method.routing_key}':\n{body.decode()}")
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
@@ -14,7 +14,6 @@ response = channel.queue_declare(queue='', exclusive=True)
 
 print("Informe o tipo de notifição que deseja receber (exemplo: Notificação de segurança, Atualização de sistema):")
 type_notification = input()
-
 
 channel.queue_bind(exchange=EXCHANGE_NAME, queue=response.method.queue, routing_key=type_notification)
 
