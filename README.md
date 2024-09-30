@@ -57,7 +57,7 @@ RabbitMQ/
 
 Certifique-se de que o RabbitMQ está instalado e em execução no seu sistema.
 
-- **No macOS (usando Homebrew):**
+- **No macOS:**
 
   ```bash
   brew install rabbitmq
