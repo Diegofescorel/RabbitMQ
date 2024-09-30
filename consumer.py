@@ -1,29 +1,24 @@
 import pika
-import sys  # Adicionar a biblioteca sys para usar flush()
 
 EXCHANGE_NAME = 'software_update_exchange'
 
 def callback(ch, method, properties, body):
-    print(f"[CONSUMIDOR] Notificação recebida:\n{body.decode()}")
-    sys.stdout.flush()  # Força o envio da saída imediatamente
+    print(f"[CONSUMIDOR] Notificação recebida {method.routing_key}:\n{body.decode()}")
 
-# Connection to RabbitMQ
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
-# Declare the exchange
-channel.exchange_declare(exchange=EXCHANGE_NAME, exchange_type='fanout')
+channel.exchange_declare(exchange=EXCHANGE_NAME, exchange_type='topic')
 
-# Create a temporary queue for consumer
-result = channel.queue_declare(queue='', exclusive=True)
-queue_name = result.method.queue
+response = channel.queue_declare(queue='', exclusive=True)
 
-# Bind the queue to the exchange
-channel.queue_bind(exchange=EXCHANGE_NAME, queue=queue_name)
+print("Informe o tipo de notifição que deseja receber (exemplo: Notificação de segurança, Atualização de sistema):")
+type_notification = input()
 
-print(' [*] Consumidor esperando notificações. Para sair, pressione CTRL+C')
-sys.stdout.flush()  # Força o envio da saída imediatamente
 
-# Start consuming messages
-channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+channel.queue_bind(exchange=EXCHANGE_NAME, queue=response.method.queue, routing_key=type_notification)
+
+print(f'Consumidor esperando notificações do tipo "{type_notification}". Para sair, pressione CTRL + C')
+
+channel.basic_consume(queue=response.method.queue, on_message_callback=callback, auto_ack=True)
 channel.start_consuming()

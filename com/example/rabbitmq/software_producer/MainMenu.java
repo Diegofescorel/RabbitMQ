@@ -2,11 +2,6 @@
 package com.example.rabbitmq.software_producer;
 
 import java.util.Scanner;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 
 public class MainMenu {
 
@@ -34,13 +29,16 @@ public class MainMenu {
                     break;
                 case 2:
                     // Rodar o consumidor
-                    System.out.println("Iniciando o consumidor...");
-                    runPythonScript("./consumer.py");
+                    System.out.println("Execute o comando a seguir para rodar o consumidor:");
+                    System.out.println("Comando: python3 consumer.py\n");
+                    // runPythonScript("./consumer.py");
                     break;
                 case 3:
                     // Rodar a auditoria
-                    System.out.println("Iniciando a auditoria...");
-                    runPythonScript("./auditoria.py");
+                    // System.out.println("Iniciando a auditoria...");
+                    // runPythonScript("./auditoria.py");
+                    System.out.println("Execute o comando a seguir para rodar a auditoria:");
+                    System.out.println("Comando: python3 auditoria.py\n");
                     break;
                 case 4:
                     System.out.println("Saindo do sistema...");
@@ -53,52 +51,52 @@ public class MainMenu {
         scanner.close();
     }
 
-    private static void runPythonScript(String scriptPath) {
-    try {
-        // Executa o comando para rodar o script Python
-        Process process = Runtime.getRuntime().exec("python3 " + scriptPath);
-        System.out.println("Script Python iniciado: " + scriptPath);
+    // private static void runPythonScript(String scriptPath) {
+    // try {
+    //     // Executa o comando para rodar o script Python
+    //     Process process = Runtime.getRuntime().exec("python3 " + scriptPath);
+    //     System.out.println("Script Python iniciado: " + scriptPath);
 
-        // Captura a saída padrão (stdout)
-        StreamGobbler outputGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
-        // Captura a saída de erro (stderr)
-        StreamGobbler errorGobbler = new StreamGobbler(process.getErrorStream(), System.err::println);
+    //     // Captura a saída padrão (stdout)
+    //     StreamGobbler outputGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+    //     // Captura a saída de erro (stderr)
+    //     StreamGobbler errorGobbler = new StreamGobbler(process.getErrorStream(), System.err::println);
 
-        Executors.newSingleThreadExecutor().submit(outputGobbler);
-        Executors.newSingleThreadExecutor().submit(errorGobbler);
+    //     Executors.newSingleThreadExecutor().submit(outputGobbler);
+    //     Executors.newSingleThreadExecutor().submit(errorGobbler);
 
-        // Não usamos process.waitFor(), pois o script pode rodar indefinidamente
-        System.out.println("O script está sendo executado em segundo plano.");
+    //     // Não usamos process.waitFor(), pois o script pode rodar indefinidamente
+    //     System.out.println("O script está sendo executado em segundo plano.");
         
-        // Pausar até o usuário pressionar Enter
-        System.out.println("Pressione Enter para voltar ao menu.");
-        new Scanner(System.in).nextLine();
+    //     // Pausar até o usuário pressionar Enter
+    //     System.out.println("Pressione Enter para voltar ao menu.");
+    //     new Scanner(System.in).nextLine();
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+    // } catch (Exception e) {
+    //     e.printStackTrace();
+    // }
 }
 
-}
+// }
 
-class StreamGobbler implements Runnable {
-    private final BufferedReader reader;
-    private final Consumer<String> consumer;
+// class StreamGobbler implements Runnable {
+//     private final BufferedReader reader;
+//     private final Consumer<String> consumer;
 
-    public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
-        this.reader = new BufferedReader(new InputStreamReader(inputStream));
-        this.consumer = consumer;
-    }
+//     public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
+//         this.reader = new BufferedReader(new InputStreamReader(inputStream));
+//         this.consumer = consumer;
+//     }
 
-    @Override
-    public void run() {
-        try {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                consumer.accept(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
+//     @Override
+//     public void run() {
+//         try {
+//             String line;
+//             while ((line = reader.readLine()) != null) {
+//                 consumer.accept(line);
+//             }
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//     }
+// }

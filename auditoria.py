@@ -1,29 +1,20 @@
 import pika
-import sys  # Adicionar a biblioteca sys para usar flush()
 
 EXCHANGE_NAME = 'software_update_exchange'
 
 def callback(ch, method, properties, body):
-    print(f"[AUDITORIA] Notificação auditada:\n{body.decode()}")
-    sys.stdout.flush()  # Força o envio da saída imediatamente
+    print(f"[AUDITORIA] Notificação auditada '{method.routing_key}':\n{body.decode()}")
 
-# Connection to RabbitMQ
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
-# Declare the exchange
-channel.exchange_declare(exchange=EXCHANGE_NAME, exchange_type='fanout')
+channel.exchange_declare(exchange=EXCHANGE_NAME, exchange_type='topic')
 
-# Create a temporary queue for audit
-result = channel.queue_declare(queue='', exclusive=True)
-queue_name = result.method.queue
+response = channel.queue_declare(queue='', exclusive=True)
 
-# Bind the queue to the exchange
-channel.queue_bind(exchange=EXCHANGE_NAME, queue=queue_name)
+channel.queue_bind(exchange=EXCHANGE_NAME, queue=response.method.queue, routing_key='#')
 
-print(' [*] Auditoria esperando notificações. Para sair, pressione CTRL+C')
-sys.stdout.flush()  # Força o envio da saída imediatamente
+print(' [*] Auditoria esperando todas as notificações. Para sair, pressione CTRL + C')
 
-# Start consuming messages
-channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+channel.basic_consume(queue=response.method.queue, on_message_callback=callback, auto_ack=True)
 channel.start_consuming()
