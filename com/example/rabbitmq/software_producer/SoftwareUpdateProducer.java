@@ -37,10 +37,18 @@ public class SoftwareUpdateProducer {
                 channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println(" [x] Enviado: '" + message + "'");
 
-                // Ask if the user wants to send another message
-                System.out.println("Deseja enviar outra mensagem? (s/n)");
-                String answer = scanner.nextLine();
-                if (answer.equalsIgnoreCase("n")) {
+                // Verificação da resposta do usuário
+                String answer;
+                do {
+                    System.out.println("Deseja enviar outra mensagem? (s/n)");
+                    answer = scanner.nextLine().toLowerCase();
+                    if (!answer.equals("s") && !answer.equals("n")) {
+                        System.out.println("Entrada inválida. Digite 's' para sim ou 'n' para não.");
+                    }
+                } while (!answer.equals("s") && !answer.equals("n"));
+
+                // Se a resposta for "n", interrompe o loop
+                if (answer.equals("n")) {
                     break;
                 }
             }
