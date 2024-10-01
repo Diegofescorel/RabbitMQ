@@ -8,18 +8,21 @@ Este projeto demonstra a comunicação entre um **produtor Java** e **consumidor
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Pré-requisitos](#pré-requisitos)
 - [Configuração do Ambiente](#configuração-do-ambiente)
-- [Executando o Produtor Java](#executando-o-produtor-java)
-- [Executando os Consumidores Python](#executando-os-consumidores-python)
+- [Executando o Progama](#executando-o-progama)
+- [Interagindo com o Progama](#interagindo-com-o-progama)
+- [Grupo](#grupo)
+
+
 
 ## Descrição do Cenário
 
 O sistema consiste em:
 
-- **Produtor Java (`SoftwareUpdateProducer.java`)**: Envia mensagens sobre atualizações de software para um exchange do RabbitMQ.
+- **Produtor Java (`SoftwareUpdateProducer.java`)**: Envia mensagens sobre Notificações de software ou/e Atualizações de segurança  para um exchange do RabbitMQ.
 - **Consumidor Python (`consumer.py`)**: Recebe as mensagens do exchange e as processa.
 - **Auditoria Python (`auditoria.py`)**: Recebe todas as mensagens para fins de auditoria.
 
-A comunicação é feita através de um **exchange do tipo `fanout`**, que envia todas as mensagens recebidas para todas as filas ligadas a ele.
+A comunicação é feita através de um **exchange do tipo `topic`**, que envia todas as mensagens recebidas para todas as filas ligadas a ele.
 
 ## Estrutura do Projeto
 ```plaintext
@@ -29,7 +32,9 @@ RabbitMQ/
 │       └── rabbitmq/
 │           └── software_producer/
 │               ├── SoftwareUpdateProducer.java
-│               └── SoftwareUpdateProducer.class
+│               ├── SoftwareUpdateProducer.class
+│               ├── MainMenu.java
+│               └── MainMenu.class
 ├── consumer.py
 ├── auditoria.py
 ├── lib/
@@ -41,7 +46,7 @@ RabbitMQ/
 
 ## Pré-requisitos
 
-- **Java Development Kit (JDK) 8 ou superior**
+- **Java Development Kit (JDK) 8+**
 - **Python 3**
 - **RabbitMQ instalado e em execução**
 - **Bibliotecas Java:**
@@ -80,16 +85,21 @@ A estrutura de pacotes do Java deve ser refletida nos diretórios. Certifique-se
 
 ### 4. Configurar o Ambiente Python
 - **Criar um ambiente virtual:**
-  ```python3 -m venv venv```
+  ```bash
+  python3 -m venv venv
+  ```
   
 - **Ativar o ambiente virtual:**
-  ```source venv/bin/activate```
+  ```bash
+  source venv/bin/activate
+  ```
 
 - **Instalar a biblioteca pika:**
-  ```pip install pika```
+  ```bash
+  pip install pika
+  ```
   
-  
-## Executando o Produtor Java**
+## Executando o Progama
 ### 1. Navegar até o Diretório do Projeto
   
   ```bash
@@ -98,34 +108,40 @@ A estrutura de pacotes do Java deve ser refletida nos diretórios. Certifique-se
 
 ### 2. Compilar o Código Java
   ```java
-  javac -cp ".:lib/*" com/example/rabbitmq/software_producer/SoftwareUpdateProducer.java
+  javac -cp ".:lib/*" com/example/rabbitmq/software_producer/MainMenu.java
 ```
 
 ### 3. Executar o Produtor Java
   ```java
-  java -cp ".:lib/*" com.example.rabbitmq.software_producer.SoftwareUpdateProducer
+  java -cp ".:lib/*" com.example.rabbitmq.software_producer.MainMenu
 ```
 
-### 4. Interagir com o Programa
+## Interagindo com o Progama
+### 1. Menu
+O programa irá dar 4 opções, basta somente escolher qual será a sua função.
+- **1. Produtor de Atualizações**
+- **2. Consumidor de Atualizações**
+- **3. Auditoria**
+- **4. Sair**
+
+### 2. Produtor
 O programa solicitará:
 
 - **Nome do produtor**
 - **Tipo de atualização** 
 - **Descrição da atualização**
 
-## Executando os Consumidores Python
-### 1. Ativar o Ambiente Virtual
-Em cada terminal onde você executará um consumidor:
-  
-  ```bash
-  cd /caminho/para/seu/projeto/RabbitMQ
-  source venv/bin/activate
-```
+### 3. Auditoria
+O programa solicitará que o usuario execute o comando `control + c` e apos esse comando execute o comando `python3 auditoria.py`
 
-### 2. Executar o consumer.py
-```python consumer.py```
+### 3. Consumidor
+- O programa solicitará que o usuario execute o comando `control + c` e apos esse comando execute o comando `python3 consumer.py`, após isso será necessario informar o tipo de notificação que o consumidor vai receber (exemplo: Notificação de segurança, Atualização de sistema).
 
-### 3. Executar o auditoria.py
-Em outro terminal com o ambiente virtual ativado:
-
-```python auditoria.py```
+## Grupo
+**Integrantes**
+- Arthur Reis
+- Diego Escorel
+- Edmar Alencar
+- Gabriel Moura
+- Luiz Felipe Soriano 
+- Renato Santana
