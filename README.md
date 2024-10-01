@@ -8,8 +8,8 @@ Este projeto demonstra a comunicação entre um **produtor Java** e **consumidor
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Pré-requisitos](#pré-requisitos)
 - [Configuração do Ambiente](#configuração-do-ambiente)
-- [Executando o Programa](#executando-o-progama)
-- [Interagindo com o Programa](#interagindo-com-o-progama)
+- [Executando o Programa](#executando-o-programa)
+- [Interagindo com o Programa](#interagindo-com-o-programa)
 - [Grupo](#grupo)
 
 
@@ -99,7 +99,7 @@ A estrutura de pacotes do Java deve ser refletida nos diretórios. Certifique-se
   pip install pika
   ```
   
-## Executando o Progama
+## Executando o Programa
 ### 1. Navegar até o Diretório do Projeto
   
   ```bash
@@ -116,7 +116,7 @@ A estrutura de pacotes do Java deve ser refletida nos diretórios. Certifique-se
   java -cp ".:lib/*" com.example.rabbitmq.software_producer.MainMenu
 ```
 
-## Interagindo com o Progama
+## Interagindo com o Programa
 ### 1. Menu
 O programa apresentará quatro opções.
 - **1. Produtor de Atualizações**
