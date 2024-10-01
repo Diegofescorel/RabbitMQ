@@ -130,6 +130,7 @@ O programa solicitará:
 - **Nome do produtor**
 - **Tipo de atualização** 
 - **Descrição da atualização**
+- **Tipo de notificação**
 
 ### 3. Auditoria
 O programa solicitará que o usuario execute o comando `control + c` e apos esse comando execute o comando `python3 auditoria.py`
