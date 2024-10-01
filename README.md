@@ -1,6 +1,6 @@
 # Projeto RabbitMQ: Produtor Java e Consumidores Python
 
-Este projeto demonstra a comunicação entre um **produtor Java** e **consumidores Python** usando o **RabbitMQ** como intermediário de mensagens. O sistema permite o envio de notificações de atualizações de software, que são consumidas por um ou mais consumidores, incluindo um processo de auditoria.
+O sistema tem como objetivo enviar e receber notificações sobre novas atualizações de software para diferentes usuários de um sistema, permitindo que administradores de TI enviem alertas sobre correções de segurança, atualizações de funcionalidades e outros tipos de releases. Essas mensagens são distribuídas entre os consumidores, que podem ser dispositivos de usuários finais ou servidores corporativos. Além disso, um componente de auditoria registra todas as mensagens enviadas para fins de monitoramento e histórico.
 
 ## Índice
 
