@@ -8,8 +8,8 @@ Este projeto demonstra a comunicação entre um **produtor Java** e **consumidor
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Pré-requisitos](#pré-requisitos)
 - [Configuração do Ambiente](#configuração-do-ambiente)
-- [Executando o Progama](#executando-o-progama)
-- [Interagindo com o Progama](#interagindo-com-o-progama)
+- [Executando o Programa](#executando-o-progama)
+- [Interagindo com o Programa](#interagindo-com-o-progama)
 - [Grupo](#grupo)
 
 
@@ -118,7 +118,7 @@ A estrutura de pacotes do Java deve ser refletida nos diretórios. Certifique-se
 
 ## Interagindo com o Progama
 ### 1. Menu
-O programa irá dar 4 opções, basta somente escolher qual será a sua função.
+O programa apresentará quatro opções.
 - **1. Produtor de Atualizações**
 - **2. Consumidor de Atualizações**
 - **3. Auditoria**
