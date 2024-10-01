@@ -135,7 +135,7 @@ O programa solicitará:
 ### 3. Auditoria
 O programa solicitará que o usuario execute o comando `control + c` e apos esse comando execute o comando `python3 auditoria.py`
 
-### 3. Consumidor
+### 4. Consumidor
 - O programa solicitará que o usuario execute o comando `control + c` e apos esse comando execute o comando `python3 consumer.py`, após isso será necessario informar o tipo de notificação que o consumidor vai receber (exemplo: Notificação de segurança, Atualização de sistema).
 
 ## Grupo
